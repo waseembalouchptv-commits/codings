@@ -1,0 +1,363 @@
+{
+ "_note": "Heritage sites and towns not in Natural Earth. Coordinates are approximate (rounded to ~0.01 deg, ~1 km) from public gazetteers; verify before publishing a map that zooms closer than district level. Aliases include Urdu-script names so Urdu transcripts trigger maps too.",
+ "places": [
+  {
+   "name": "Mehrgarh",
+   "aliases": [
+    "mehrgarh"
+   ],
+   "kind": "site",
+   "lon": 67.62,
+   "lat": 29.38,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Mohenjo-daro",
+   "aliases": [
+    "mohenjo daro",
+    "mohenjodaro",
+    "moenjodaro"
+   ],
+   "kind": "site",
+   "lon": 68.14,
+   "lat": 27.33,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Harappa",
+   "aliases": [],
+   "kind": "site",
+   "lon": 72.87,
+   "lat": 30.63,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Taxila",
+   "aliases": [],
+   "kind": "site",
+   "lon": 72.79,
+   "lat": 33.75,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Makli Necropolis",
+   "aliases": [
+    "makli"
+   ],
+   "kind": "site",
+   "lon": 67.9,
+   "lat": 24.77,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Rohtas Fort",
+   "aliases": [
+    "rohtas"
+   ],
+   "kind": "site",
+   "lon": 73.58,
+   "lat": 32.96,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Khyber Pass",
+   "aliases": [
+    "khyber pass"
+   ],
+   "kind": "pass",
+   "lon": 71.2,
+   "lat": 34.08,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Bolan Pass",
+   "aliases": [
+    "bolan pass",
+    "bolan"
+   ],
+   "kind": "pass",
+   "lon": 67.58,
+   "lat": 29.75,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Ziarat",
+   "aliases": [],
+   "kind": "town",
+   "lon": 67.73,
+   "lat": 30.38,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Kalat",
+   "aliases": [
+    "qalat"
+   ],
+   "kind": "town",
+   "lon": 66.59,
+   "lat": 29.03,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Sibi",
+   "aliases": [],
+   "kind": "town",
+   "lon": 67.88,
+   "lat": 29.55,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Nushki",
+   "aliases": [
+    "noshki"
+   ],
+   "kind": "town",
+   "lon": 66.02,
+   "lat": 29.55,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Panjgur",
+   "aliases": [],
+   "kind": "town",
+   "lon": 64.09,
+   "lat": 26.97,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Khuzdar",
+   "aliases": [],
+   "kind": "town",
+   "lon": 66.61,
+   "lat": 27.81,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Pasni",
+   "aliases": [],
+   "kind": "town",
+   "lon": 63.47,
+   "lat": 25.26,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Jiwani",
+   "aliases": [],
+   "kind": "town",
+   "lon": 61.74,
+   "lat": 25.05,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Dera Bugti",
+   "aliases": [],
+   "kind": "town",
+   "lon": 69.15,
+   "lat": 29.03,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Loralai",
+   "aliases": [],
+   "kind": "town",
+   "lon": 68.6,
+   "lat": 30.37,
+   "country": "Pakistan"
+  },
+  {
+   "name": "Chagai",
+   "aliases": [
+    "chaghi"
+   ],
+   "kind": "town",
+   "lon": 64.72,
+   "lat": 29.3,
+   "country": "Pakistan"
+  }
+ ],
+ "aliases": {
+  "Balochistan": [
+   "baluchistan",
+   "balochistan",
+   "بلوچستان"
+  ],
+  "Sindh": [
+   "sind",
+   "sindh",
+   "سندھ"
+  ],
+  "Khyber Pakhtunkhwa": [
+   "kpk",
+   "kp",
+   "khyber pakhtunkhwa",
+   "pakhtunkhwa",
+   "nwfp",
+   "خیبر پختونخوا"
+  ],
+  "Gilgit-Baltistan": [
+   "gilgit baltistan",
+   "gilgit-baltistan",
+   "گلگت بلتستان"
+  ],
+  "Azad Jammu and Kashmir": [
+   "azad kashmir",
+   "ajk"
+  ],
+  "Sialkote": [
+   "sialkot"
+  ],
+  "Sheikhu Pura": [
+   "sheikhupura"
+  ],
+  "Indus": [
+   "indus",
+   "sindhu",
+   "darya-e-sindh",
+   "دریائے سندھ",
+   "سندھو"
+  ],
+  "Sulaiman Mountains": [
+   "sulaiman",
+   "suleiman",
+   "sulaiman range",
+   "suleman",
+   "کوہ سلیمان"
+  ],
+  "Kirthar Mountains": [
+   "kirthar",
+   "khirthar"
+  ],
+  "Hindu Kush": [
+   "hindu kush",
+   "hindukush",
+   "ہندوکش"
+  ],
+  "Karakoram": [
+   "karakoram",
+   "قراقرم"
+  ],
+  "Thar Desert": [
+   "thar",
+   "thar desert",
+   "تھر"
+  ],
+  "Central Makran Range": [
+   "makran",
+   "مکران"
+  ],
+  "Indus River Delta": [
+   "indus delta"
+  ],
+  "Quetta": [
+   "کوئٹہ"
+  ],
+  "Pakistan": [
+   "پاکستان"
+  ],
+  "Karachi": [
+   "کراچی"
+  ],
+  "Lahore": [
+   "لاہور"
+  ],
+  "Gwadar": [
+   "گوادر"
+  ],
+  "Punjab": [
+   "پنجاب"
+  ],
+  "Islamabad": [
+   "اسلام آباد"
+  ],
+  "Peshawar": [
+   "پشاور"
+  ],
+  "Mehrgarh": [
+   "مہرگڑھ"
+  ],
+  "Mohenjo-daro": [
+   "موہنجو داڑو",
+   "موئن جو دڑو"
+  ],
+  "Harappa": [
+   "ہڑپہ"
+  ],
+  "Taxila": [
+   "ٹیکسلا"
+  ],
+  "Bolan Pass": [
+   "درہ بولان",
+   "بولان"
+  ],
+  "Khyber Pass": [
+   "درہ خیبر"
+  ],
+  "Sibi": [
+   "سبی"
+  ],
+  "Kalat": [
+   "قلات"
+  ],
+  "Ziarat": [
+   "زیارت"
+  ],
+  "Turbat": [
+   "تربت"
+  ],
+  "Khuzdar": [
+   "خضدار"
+  ],
+  "Panjgur": [
+   "پنجگور"
+  ],
+  "Chagai": [
+   "چاغی"
+  ],
+  "Nushki": [
+   "نوشکی"
+  ],
+  "Pasni": [
+   "پسنی"
+  ],
+  "Jiwani": [
+   "جیوانی"
+  ],
+  "Zhob": [
+   "ژوب"
+  ],
+  "Loralai": [
+   "لورالائی"
+  ],
+  "Dera Bugti": [
+   "ڈیرہ بگٹی"
+  ],
+  "Chaman": [
+   "چمن"
+  ],
+  "Multan": [
+   "ملتان"
+  ],
+  "Hyderabad": [
+   "حیدرآباد"
+  ],
+  "Sukkur": [
+   "سکھر"
+  ],
+  "Iran": [
+   "ایران"
+  ],
+  "Afghanistan": [
+   "افغانستان"
+  ],
+  "India": [
+   "بھارت",
+   "ہندوستان"
+  ],
+  "China": [
+   "چین"
+  ],
+  "Oman": [
+   "عمان"
+  ]
+ }
+}

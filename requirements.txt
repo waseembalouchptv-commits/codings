@@ -1,0 +1,6 @@
+numpy>=1.24
+opencv-python-headless>=4.8,<5   # 5.x removed the Haar face cascades used for face protection
+pillow>=10
+scipy>=1.10
+faster-whisper>=1.0               # local transcription with word timestamps (optional if you pass --transcript)
+pytest>=7                         # tests

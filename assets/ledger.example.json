@@ -1,0 +1,16 @@
+{
+  "assets": [
+    {"file": "quetta_valley_drone.mp4", "kind": "video", "tags": ["quetta", "valley", "mountains"],
+     "license": "own", "title": "Quetta valley, drone, 2025"},
+    {"file": "mehrgarh_reconstruction.png", "kind": "image", "tags": ["mehrgarh", "neolithic", "village"],
+     "license": "ai-generated", "ai_generated": true, "depicts": "historical",
+     "prompt": "Neolithic mud-brick village at Mehrgarh, Kachi plain, c. 6000 BCE, archaeologically grounded"},
+    {"file": "kalat_1890s.jpg", "kind": "image", "tags": ["kalat", "khan", "palace"],
+     "license": "public-domain", "source": "https://commons.wikimedia.org/wiki/File:...",
+     "author": "Unknown photographer (pre-1900)", "title": "Miri Fort, Kalat"},
+    {"file": "gwadar_port.jpg", "kind": "image", "tags": ["gwadar", "port", "coast"],
+     "license": "CC-BY-SA-4.0", "source": "https://commons.wikimedia.org/wiki/File:...", "author": "Photographer Name"},
+    {"file": "cultural_bed.wav", "kind": "music", "tags": ["cultural"],
+     "license": "licensed-stock", "source": "https://library.example/track/123", "reference": "licence #ABC-123"}
+  ]
+}
