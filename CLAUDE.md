@@ -8,6 +8,11 @@ directed documentary edit back.
 **The standing brief is [docs/DIRECTING_BRIEF.md](docs/DIRECTING_BRIEF.md). Read
 it before any editing work.** The owner should not have to repeat it.
 
+The whole workflow is also packaged as the project skill `/documentary-edit`
+(`.claude/skills/documentary-edit/`). It triggers on footage-editing requests.
+Its `references/` hold copies of the brief and plan format: edit `docs/` first,
+then copy them over (a test checks they match).
+
 ## When the owner provides footage
 
 Follow [docs/WORKFLOW.md](docs/WORKFLOW.md):

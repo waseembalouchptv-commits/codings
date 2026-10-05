@@ -8,3 +8,4 @@ projects/
 !docedit/data/**
 node_modules/
 renders/
+dist/
