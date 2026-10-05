@@ -198,9 +198,9 @@ def _licensed_bed(licensed, mood, dur):
 
 
 def mix(voice_src, music_wav, fx_wav, out_wav, target_lufs=-14.0):
-    """Voice cleanup + music ducked under narration + sfx, loudness-normalised for YouTube."""
-    voice = ("highpass=f=75,afftdn=nr=10:nf=-40,"
-             "equalizer=f=250:t=q:w=1.2:g=-2,equalizer=f=3500:t=q:w=1.0:g=2,"
+    """Voice tone (noise was already removed in the clean step, see voice.py) + music ducked
+    under narration + sfx, loudness-normalised for YouTube."""
+    voice = ("equalizer=f=250:t=q:w=1.2:g=-2,equalizer=f=3500:t=q:w=1.0:g=2,"
              "acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=2")
     graph = (f"[0:a]{voice},aresample={SR},aformat=channel_layouts=stereo,asplit=2[v][key];"
              f"[1:a][key]sidechaincompress=threshold=0.03:ratio=8:attack=40:release=500[duck];"

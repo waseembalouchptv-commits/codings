@@ -35,7 +35,7 @@ def transcript(lead=0.8):
     return {"language": "en", "words": words}, t + 0.8
 
 
-def make(dirpath, face_image=None, w=1280, h=720, fps=25):
+def make(dirpath, face_image=None, w=1280, h=720, fps=25, noisy=True):
     dirpath = Path(dirpath)
     dirpath.mkdir(parents=True, exist_ok=True)
     tr, dur = transcript()
@@ -46,7 +46,15 @@ def make(dirpath, face_image=None, w=1280, h=720, fps=25):
         tt = np.arange(e - s) / sr
         f = 140 + 30 * np.sin(i)
         audio[s:e] = 0.3 * np.sin(2 * np.pi * f * tt) * np.sin(np.pi * tt / (wd["e"] - wd["s"]))
-    pcm = (audio * 32767).astype("<i2").tobytes()
+    if noisy:  # a real room: 50 Hz mains hum with harmonics, fan hiss, the odd click
+        rng = np.random.default_rng(1)
+        tt = np.arange(len(audio)) / sr
+        audio += 0.012 * (np.sin(2 * np.pi * 50 * tt) + 0.5 * np.sin(2 * np.pi * 100 * tt)
+                          + 0.3 * np.sin(2 * np.pi * 150 * tt))
+        audio += rng.normal(0, 0.006, len(audio)).astype(np.float32)
+        for c in rng.integers(0, len(audio) - 10, 12):
+            audio[c:c + 3] += 0.4
+    pcm = (np.clip(audio, -1, 1) * 32767).astype("<i2").tobytes()
     (dirpath / "voice.raw").write_bytes(pcm)
     if face_image:
         # presenter stand-in: still portrait right of centre over a studio-ish backdrop, gentle sway

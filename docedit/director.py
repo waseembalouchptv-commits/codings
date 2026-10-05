@@ -181,7 +181,7 @@ def _visual_for(sent, ents, assets, used_assets, faces, shown_places=()):
         y = years[0]
         return {"type": "year", "label": y["label"], "caption": _keyword_caption(sent, exclude={y["label"]}),
                 "turning": False}, "split", y["t"], f"date: {y['label']}"
-    if quotes:
+    if quotes and _latin(quotes[0]["text"]):  # non-English quotes need a translation first (director's job)
         return {"type": "quote", "text": quotes[0]["text"]}, "split", sent["start"], "quotation"
     return None
 

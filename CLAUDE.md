@@ -44,6 +44,11 @@ Follow [docs/WORKFLOW.md](docs/WORKFLOW.md):
 * **No fabricated evidence.** AI reconstructions are labelled. Maps use Natural
   Earth (public domain, Pakistan point-of-view boundaries). Curated site
   coordinates are approximate.
+* **English only on screen.** Captions are English and appear only where they
+  help. Translate Urdu lines into English captions when directing. Non-Latin text
+  is dropped by the renderer.
+* **Clean voice.** QC requires pauses at or below -55 dBFS after cleanup. Don't
+  weaken this; use `--denoise strong` instead.
 * **Restraint.** Keep the rationed SFX, the minimum presenter gap between
   visuals, and the 4-word caption limit. Busy is not beautiful.
 
@@ -58,6 +63,7 @@ Follow [docs/WORKFLOW.md](docs/WORKFLOW.md):
 | `docedit/gazetteer.py` | place lookup (English and Urdu names) over `data/geo_region.json` + `data/places_extra.json` |
 | `docedit/graphics.py` | map journeys, year reveals, stat counters, quotes, timelines, Ken Burns, video B-roll |
 | `docedit/render.py` | clean-take assembly and grade; virtual camera; face-safe compositor |
+| `docedit/voice.py` | measured voice restoration (hum, hiss, clicks, sibilance) before cutting |
 | `docedit/audio.py` | generated score and SFX; voice chain; ducking; loudness to -14 LUFS |
 | `docedit/licenses.py` | asset ledger and licence policy |
 | `docedit/qc.py` | executable QC checklist, which writes `qc_report.md` |

@@ -44,3 +44,27 @@ def test_ledger_rejects_and_lists(tmp_path):
     assert [a["file"] for a in led["usable"]] == ["good.jpg"]
     assert [a["file"] for a in led["rejected"]] == ["bad.jpg"]
     assert led["unlisted"] == ["stray.png"]
+
+
+def test_voice_cleanup_removes_hum_hiss_and_clicks(tmp_path):
+    import numpy as np
+    from docedit import voice
+    from docedit.media import run
+    from tests.fixture import make
+    raw, tr = make(tmp_path / "src", w=320, h=180, noisy=True)
+    words = json.loads(tr.read_text())["words"]
+    flt, rep = voice.prepare(raw, words, 33.2, tmp_path)
+    assert rep["hum_hz"] == 50 and rep["snr_db"] < 30
+    out = tmp_path / "clean.wav"
+    run(["ffmpeg", "-y", "-v", "error", "-i", raw, "-vn", "-af", flt, "-ac", "1", "-ar", 48000, out])
+    after = voice.analyze(out, words, 33.2)
+    assert after["noise_floor_db"] < rep["noise_floor_db"] - 15
+    assert after["hum_hz"] is None and after["clicks_per_min"] < 2
+    assert abs(after["speech_db"] - rep["speech_db"]) < 3      # the voice itself is preserved
+
+
+def test_clean_room_is_barely_touched():
+    from docedit.voice import chain
+    flt, notes = chain({"snr_db": 55, "noise_floor_db": -72, "hum_hz": None, "clicks_per_min": 0,
+                        "sibilance_db": -30})
+    assert "arnndn" not in flt and "nr=5" in flt

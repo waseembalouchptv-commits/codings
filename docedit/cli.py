@@ -16,7 +16,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import audio, cleanup, director, faces, licenses, qc, render
+from . import audio, cleanup, director, faces, licenses, qc, render, voice
 from .media import probe, read_json, require_ffmpeg, write_json
 from .transcribe import load_transcript, transcribe
 
@@ -49,7 +49,12 @@ def cmd_clean(args):
     write_json(p / "cleanup.json", cl)
     grade = render.estimate_grade(src["path"])
     write_json(p / "grade.json", grade)
-    render.make_clean(src["path"], cl["keep"], p / "clean.mp4", grade, p, fps=round(src["fps"]))
+    vchain, vrep = voice.prepare(src["path"], tr["words"], src["duration"], p, mode=args.denoise)
+    render.make_clean(src["path"], cl["keep"], p / "clean.mp4", grade, p, fps=round(src["fps"]), voice_chain=vchain)
+    vrep["after_noise_floor_db"] = voice.measure_pauses(p / "clean.mp4", cl["words"], cl["clean_duration"], p)
+    write_json(p / "voice.json", vrep)
+    print(f"voice: noise floor {vrep['noise_floor_db']} -> {vrep['after_noise_floor_db']} dBFS "
+          f"(SNR {vrep['snr_db']} dB); {'; '.join(vrep['steps'])}")
     by = {}
     for r in cl["removed_words"]:
         by[r["why"]] = by.get(r["why"], 0) + 1
@@ -198,6 +203,8 @@ def main(argv=None):
         sp.add_argument("--assets", help="folder with ledger.json and licensed/AI/own media")
         sp.add_argument("--title", help="video title, shown once after the hook")
         sp.add_argument("--preview", action="store_true", help="fast 720p render")
+        sp.add_argument("--denoise", choices=("auto", "strong", "off"), default="auto",
+                        help="voice noise removal: auto (measured), strong (noisy rooms), off")
         return sp
 
     for name, fn, video in (("analyze", cmd_analyze, True), ("run", cmd_run, True)):

@@ -100,6 +100,10 @@ def run_qc(project: Path, ledger=None, final=None):
     long_caps = [t["text"] for b in beats for t in b.get("text", [])
                  if t.get("style") != "title" and len(t["text"].split()) > STYLE.max_caption_words]
     _check(R, "Visuals", "Captions are short editorial words, not subtitles", not long_caps, ", ".join(long_caps))
+    texts = [t["text"] for b in beats for t in b.get("text", [])]
+    texts += [b["visual"][k] for b in beats for k in ("caption", "label", "text") if b.get("visual", {}).get(k)]
+    non_en = [t for t in texts if any(ord(c) >= 0x250 for c in str(t))]
+    _check(R, "Visuals", "All on-screen text is English", not non_en, ", ".join(non_en[:5]))
 
     # ---------------------------------------------------------------- audio
     if final and Path(final).exists():
@@ -107,6 +111,12 @@ def run_qc(project: Path, ledger=None, final=None):
         _check(R, "Audio", "Integrated loudness -15..-13 LUFS (YouTube)", lufs is not None and -15.5 <= lufs <= -12.5,
                f"{lufs} LUFS")
         _check(R, "Audio", "True peak <= -1 dBTP", tp is not None and tp <= -0.9, f"{tp} dBTP")
+    vj = project / "voice.json"
+    if vj.exists():
+        v = read_json(vj)
+        after = v.get("after_noise_floor_db")
+        _check(R, "Audio", "Background noise removed (pauses <= -55 dBFS)", after is not None and after <= -55,
+               f"{v['noise_floor_db']} -> {after} dBFS; {'; '.join(v.get('steps', []))}")
     _check(R, "Audio", "Music ducked under narration", True, "sidechain compressor keyed on voice; bed at -20 dB",
            blocking=False)
     sfx = plan.get("sfx", [])

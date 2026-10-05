@@ -59,13 +59,17 @@ def grade_filter(g):
             f"eq=contrast={s['contrast']}:saturation={s['saturation']}:gamma={g['gamma']}")
 
 
-def make_clean(src, keep, out, grade, workdir, fps):
-    """Concatenate keep ranges (with 8 ms audio fades so cuts never click) and grade."""
-    parts, labels = [], []
+def make_clean(src, keep, out, grade, workdir, fps, voice_chain="anull"):
+    """Restore the voice on the whole source, then concatenate keep ranges (8 ms fades so cuts
+    never click) and grade. Denoising before cutting means every kept word gets identical treatment."""
+    n = len(keep)
+    parts = [f"[0:a]aresample=48000,{voice_chain},asplit={n}" + "".join(f"[src{i}]" for i in range(n)) + ";"]
+    parts.append(f"[0:v]split={n}" + "".join(f"[vsrc{i}]" for i in range(n)) + ";")
+    labels = []
     for i, (s, e) in enumerate(keep):
         d = e - s
-        parts.append(f"[0:v]trim=start={s:.3f}:end={e:.3f},setpts=PTS-STARTPTS[v{i}];")
-        parts.append(f"[0:a]atrim=start={s:.3f}:end={e:.3f},asetpts=PTS-STARTPTS,"
+        parts.append(f"[vsrc{i}]trim=start={s:.3f}:end={e:.3f},setpts=PTS-STARTPTS[v{i}];")
+        parts.append(f"[src{i}]atrim=start={s:.3f}:end={e:.3f},asetpts=PTS-STARTPTS,"
                      f"afade=t=in:d=0.008,afade=t=out:st={max(0, d - 0.008):.3f}:d=0.008[a{i}];")
         labels.append(f"[v{i}][a{i}]")
     graph = "".join(parts) + "".join(labels) + f"concat=n={len(keep)}:v=1:a=1[cv][ca];" \
@@ -259,6 +263,9 @@ class Compositor:
         if lay == "split":
             avoid.append(prep["panel"])
         for item in b.get("text", []):
+            if any(ord(c) >= 0x250 for c in item["text"]):
+                rec["dropped"].append({"text": item["text"], "why": "on-screen text must be English"})
+                continue
             words = len(item["text"].split())
             limit = 6 if item.get("style") == "title" else STYLE.max_caption_words
             if words > limit:
