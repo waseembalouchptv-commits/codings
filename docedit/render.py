@@ -188,7 +188,7 @@ def place_text(sprite_shape, W, H, avoid, prefer_side):
 # ------------------------------------------------------------------ compositor
 
 class Compositor:
-    def __init__(self, clean_video, plan, faces, out_w=1920, out_h=1080, fps=None):
+    def __init__(self, clean_video, plan, faces, out_w=1920, out_h=1080, fps=None, draw_text=True):
         self.src = clean_video
         self.plan = plan
         self.faces = faces
@@ -199,6 +199,7 @@ class Compositor:
         self.sw = int(round(info["width"] * self.sh / info["height"] / 2) * 2)
         self.As = info["width"] / info["height"]
         self.log = []
+        self.draw_text = draw_text  # False: captions left out of the picture (exported as editable HTML)
 
     # -- per beat preparation
     def _prepare(self, b):
@@ -283,6 +284,7 @@ class Compositor:
                 continue
             prep["texts"].append((item, spr, box))
             rec["elements"].append({"kind": "text", "text": item["text"], "box": [round(v, 1) for v in box],
+                                    "style": item.get("style", "callout"), "scale": scale,
                                     "start": item["start"], "end": item["end"]})
         self.log.append(rec)
         return prep
@@ -341,7 +343,7 @@ class Compositor:
                 pres = cv2.resize(frame, (W, H), interpolation=cv2.INTER_AREA) if frame.shape[1] != W else frame
                 a = G.ease(tl / 0.25)
                 canvas[:] = (canvas * a + pres * (1 - a)).astype(np.uint8)
-        for item, spr, box in prep["texts"]:
+        for item, spr, box in (prep["texts"] if self.draw_text else []):
             if item["start"] <= t < item["end"]:
                 a_in = G.ease((t - item["start"]) / STYLE.enter)
                 a_out = G.ease((item["end"] - t) / STYLE.exit)

@@ -6,3 +6,5 @@ projects/
 *.mov
 *.wav
 !docedit/data/**
+node_modules/
+renders/

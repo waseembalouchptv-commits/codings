@@ -179,6 +179,13 @@ def cmd_qc(args):
     return 0
 
 
+def cmd_export_hf(args):
+    from . import hyperframes
+    out = hyperframes.export(_p(args), getattr(args, "out", None))
+    print(f"HyperFrames project: {out}\n  cd {out} && npx hyperframes preview   # edit in Studio\n"
+          f"  npx hyperframes render                  # render MP4")
+
+
 def cmd_run(args):
     cmd_analyze(args)
     cmd_clean(args)
@@ -217,11 +224,13 @@ def main(argv=None):
             sp.add_argument("--stop-after-plan", action="store_true")
             sp.add_argument("--cold-open", help="source seconds START-END to play first as the hook, e.g. 312.4-318.9")
     for name, fn in (("clean", cmd_clean), ("faces", cmd_faces), ("plan", cmd_plan), ("render", cmd_render),
-                     ("qc", cmd_qc)):
+                     ("qc", cmd_qc), ("export-hf", cmd_export_hf)):
         sp = common(sub.add_parser(name))
         sp.set_defaults(fn=fn)
         if name == "plan":
             sp.add_argument("--force", action="store_true", help="overwrite an existing plan.json")
+        if name == "export-hf":
+            sp.add_argument("--out", help="HyperFrames project folder (default <project>/hyperframes)")
         if name == "clean":
             sp.add_argument("--cold-open", help="source seconds START-END to play first as the hook, e.g. 312.4-318.9")
     args = ap.parse_args(argv)

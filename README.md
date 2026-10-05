@@ -61,6 +61,37 @@ Outputs in the project folder:
 | `qc_report.md` | PASS / WARN / FAIL checklist |
 | `credits.txt`, `asset_log.json` | Attribution and licence record |
 
+## Editing in HyperFrames
+
+[HyperFrames](https://github.com/heygen-com/hyperframes) (HTML to MP4) is set up
+as the editing surface after docedit has done the cut:
+
+```bash
+npm install                                   # HyperFrames CLI + GSAP (pinned in package.json)
+npx hyperframes browser ensure                # one-time: Chrome Headless Shell for rendering
+python -m docedit export-hf -o projects/quetta
+cd projects/quetta/hyperframes
+npx hyperframes check                         # lint, layout, contrast
+npx hyperframes preview                       # Studio: retime/rewrite captions, rebalance audio
+npx hyperframes render                        # MP4
+```
+
+The export splits the cut into layers:
+
+| Layer | Contents |
+|---|---|
+| `#picture` | The directed picture, without captions |
+| `.caption` | Each caption as editable HTML, positioned where docedit placed it |
+| `#voice`, `#music`, `#sfx` | Separate audio tracks: cleaned narration, ducked music, sound effects |
+
+Each caption carries `data-face-zone`, the presenter's face area at that moment.
+Keep any new text out of it. Cuts, maps and layouts are changed in docedit
+(`plan.json`), then exported again.
+
+In Claude Code cloud sessions, `.claude/hooks/session-start.sh` installs all of
+this automatically, plus the HyperFrames agent skills (`/hyperframes`,
+`/talking-head-recut`, `/embedded-captions`, `/general-video`).
+
 ## Honest limits
 
 * **No built-in AI image or video generation, and no stock search.** The tool

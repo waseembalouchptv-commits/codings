@@ -31,6 +31,13 @@ Follow [docs/WORKFLOW.md](docs/WORKFLOW.md):
    mark AI images of the past `"depicts": "historical"`.
 5. `render --preview`, look at frames, `render`, then `qc`. Deliver only when QC
    has no FAIL. Report the WARN items and `credits.txt` to the owner.
+6. **Fine edits in HyperFrames.** `python -m docedit export-hf -o projects/<slug>`,
+   then work in `projects/<slug>/hyperframes` with the `/hyperframes` skills.
+   Use them for caption wording and timing, audio balance, and extra overlays from
+   the HyperFrames registry. All non-negotiables below still apply. Respect each
+   caption's `data-face-zone`, and run `npx hyperframes check` before
+   `npx hyperframes render`. Cuts, maps and layouts belong in docedit: change
+   `plan.json` and export again.
 
 ## Non-negotiables (enforced in code; keep them that way)
 
@@ -67,12 +74,14 @@ Follow [docs/WORKFLOW.md](docs/WORKFLOW.md):
 | `docedit/audio.py` | generated score and SFX; voice chain; ducking; loudness to -14 LUFS |
 | `docedit/licenses.py` | asset ledger and licence policy |
 | `docedit/qc.py` | executable QC checklist, which writes `qc_report.md` |
+| `docedit/hyperframes.py` | export to an editable HyperFrames project (picture, HTML captions, audio stems) |
 | `docedit/style.py` | the channel's visual identity (colours, fonts, timing) |
 
 ## Dev
 
 ```bash
 pip install -r requirements.txt     # opencv must stay < 5 (Haar cascades)
+npm install && npx hyperframes browser ensure   # HyperFrames CLI, GSAP, render browser
 python -m pytest -q                 # includes an end-to-end render on synthetic footage
 ```
 
